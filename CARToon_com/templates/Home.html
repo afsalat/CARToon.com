@@ -11,8 +11,9 @@
     <header>
         <h1>Welcome to My Shop</h1>
         <nav>
-            <a href="{% url 'Register' %}">Register</a>
+            <a href="{% url 'Home' %}">Home</a>
             <a href="{% url 'Login' %}">Login</a>
+            <a href="{% url 'ViewCart' %}">Cart</a>
             <a href="{% url 'Logout' %}">Logout</a>
         </nav>
     </header>
@@ -23,7 +24,7 @@
                 <h2>{{ product.pro_name }}</h2>
                 <p>{{ product.pro_decription }}</p>
                 <p>Price: ${{ product.pro_price }}</p>
-                <img style="width:200px;height:100px;" src="{{ product.pro_image.url }}" alt="{{ product.pro_name }}">  <!-- Corrected key here -->
+                <img style="width:200px;height:100px;" src="{{ product.pro_image.url }}" alt="{{ product.pro_name }}">
                         <a href="{% url 'AddToCart' product.id %}">Add to Cart</a>
             </div>
         {% endfor %}
