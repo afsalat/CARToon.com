@@ -18,6 +18,7 @@
     </header>
     
     <div class="cart-items">
+        {% csrf_token %}
         {% for item in cart_items %}
             <div class="cart-item">
                 <h2>{{ item.pro_id.pro_name }}</h2>

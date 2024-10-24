@@ -4,8 +4,9 @@ from product.models import Product
 from user.models import customUser
 from django.contrib.auth.decorators import login_required
 
+
+
 # Endpoint: Add a product to the cart
-@login_required 
 def addToCart(request, product_id):
     try:
         product = get_object_or_404(Product, id=product_id)  
@@ -26,8 +27,8 @@ def addToCart(request, product_id):
         print(e)  
         return render(request, 'Home.html', {'message': str(e)})
 
+
 # Endpoint: View all items in the cart
-@login_required  
 def view_cart(request):
     try:
         user = request.user  
@@ -36,8 +37,8 @@ def view_cart(request):
     except Exception as e:
         return render(request, 'Home.html', {'message': str(e)})
 
+
 # Endpoint: Update the quantity of items in the cart
-@login_required  
 def updateCart(request, action, product_id):
     try:
         user = request.user  

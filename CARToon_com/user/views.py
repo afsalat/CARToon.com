@@ -16,11 +16,10 @@ def login(request):
             
             if user is not None:
                 login(request, user)
-                next_url = request.GET.get('next', 'Home')
-                return redirect(next_url)
+                return redirect('Home')
             else:
                 return render(request, 'Login.html', {'error': 'Invalid username or password'})
-                
+
         return render(request, 'Login.html')
 
 

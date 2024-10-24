@@ -17,6 +17,7 @@
         </nav>
     </header>
     <div class="product-list" style="display:flex">
+        {% csrf_token %}
         {% for product in products %}
             <div class="product" style="border: 1px solid black; width: 220px; padding-left: 10px;margin: 10px;">
                 <h2>{{ product.pro_name }}</h2>

@@ -6,9 +6,9 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),  # Add this line
-    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),  # Optional: Add logout
-    path('accounts/register/', include('user.urls')),  # Ensure your registration URL is correct
+    path('', auth_views.LoginView.as_view(), name='login'),  
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'), 
+    path('register/', include('user.urls')),  
     path('', include('user.urls')),
     path('', include('cart.urls')),
     path('', include('product.urls')),
