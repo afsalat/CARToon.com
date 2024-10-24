@@ -1,0 +1,38 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django specific files
+*.log
+*.pot
+*.pyc
+*.pyo
+db.sqlite3  # Ignore the default SQLite database
+
+# Environment variables
+.env  # If you're using an environment file for secrets
+
+# Static files (if using Django's staticfiles)
+staticfiles/
+static/
+
+# Media files (user-uploaded content)
+media/
+
+# Django migrations
+*/migrations/*
+
+# Virtual environments
+venv/
+env/
+
+# VSCode-specific files
+.vscode/
+
+# Node modules (if using npm/yarn for frontend dependencies)
+node_modules/
+
+# Operating system-specific files
+.DS_Store  # macOS
+Thumbs.db  # Windows
