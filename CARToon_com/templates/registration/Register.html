@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    <title>Register - My Shop</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f8f9fa; margin: 0; padding: 0;">
+    <header style="background-color: #343a40; color: white; text-align: center; padding: 20px;">
+        <h1>Register</h1>
+    </header>
+
+    <div class="form-container" style="width: 100%; max-width: 400px; margin: 50px auto; padding: 20px; background-color: white; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+        <form method="post" style="display: flex; flex-direction: column;">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            
+            <div style="margin-bottom: 20px;">
+                <label for="{{ form.username.id_for_label }}" style="font-weight: bold;">{{ form.username.label }}</label>
+                {{ form.username }}
+                <small style="color: red;">{{ form.username.errors }}</small>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label for="{{ form.email.id_for_label }}" style="font-weight: bold;">{{ form.email.label }}</label>
+                {{ form.email }}
+                <small style="color: red;">{{ form.email.errors }}</small>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label for="{{ form.password1.id_for_label }}" style="font-weight: bold;">{{ form.password1.label }}</label>
+                {{ form.password1 }}
+                <small style="color: red;">{{ form.password1.errors }}</small>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label for="{{ form.password2.id_for_label }}" style="font-weight: bold;">{{ form.password2.label }}</label>
+                {{ form.password2 }}
+                <small style="color: red;">{{ form.password2.errors }}</small>
+            </div>
+            
+            <button type="submit" style="background-color: #007bff; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px;">Register</button>
+        </form>
+        
+        <p style="text-align: center; margin-top: 20px;">Already have an account? <a href="{% url 'Login' %}" style="color: #007bff;">Login here</a>.</p>
+    </div>
+</body>
+</html>

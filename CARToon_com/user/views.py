@@ -19,9 +19,8 @@ def login(request):
                 return redirect('Home')
             else:
                 return render(request, 'Login.html', {'error': 'Invalid username or password'})
-
+                            
         return render(request, 'Login.html')
-
 
     except Exception as e:
         return render(request, 'Login.html', {"message":str(e), "status_code":500})
@@ -53,7 +52,8 @@ def logout(request):
         logout(request)
         redirect("Login")
 
-        return render(request, "Login.html")
+        return redirect(request, "Login")
+
 
     except Exception as e:
         return render(request, "Home.html", {"message":str(e), "status_code":500})

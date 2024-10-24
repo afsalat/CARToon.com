@@ -39,12 +39,13 @@ def view_cart(request):
         if not cart_items.exists():  
             return render(request, 'Cart.html', {"cart_items": cart_items, "message": "Your cart is empty."})
 
-        products = []
-        for item in cart_items:
-            product = Product.objects.get(id=item.pro_id)
-            products.append(product)
+        product_ids = cart_items.values_list('pro_id', flat=True)  
+        products = Product.objects.filter(id__in=product_ids)  
+        cart_items_with_products = [
+            {'cart_item': item, 'product': products.get(id=item.pro_id)} for item in cart_items
+        ]
 
-        return render(request, 'Cart.html', {"cart_items": cart_items, "products": products})
+        return render(request, 'Cart.html', {"cart_items_with_products": cart_items_with_products})
 
     except Exception as e:
         print(f"Error while viewing cart: {e}") 
@@ -53,11 +54,12 @@ def view_cart(request):
 
 
 
+
 # Endpoint: Update the quantity of items in the cart
 def updateCart(request, action, product_id):
     try:
         user = request.user  
-        cart_item = get_object_or_404(Cart, pro_id__id=product_id, user_id=user.id)
+        cart_item = get_object_or_404(Cart, pro_id=product_id, user_id=user.id)
 
         if action == 'add':
             cart_item.quantity += 1

@@ -26,6 +26,7 @@ nav a {
 }
 
 .product {
+    box-shadow: 2px 2px 5px black;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin: 10px;

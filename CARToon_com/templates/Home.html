@@ -7,30 +7,31 @@
     <link rel="stylesheet" href="{% static 'style/style.css' %}">
     <title>Home - My Shop</title>
 </head>
-<body>
-    <header>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f8f9fa;">
+    <header style="background-color: #343a40; color: white; padding: 20px; text-align: center;">
         <h1>Welcome to My Shop</h1>
         <nav>
-            <a href="{% url 'Home' %}">Home</a>
-            <a href="{% url 'Login' %}">Login</a>
-            <a href="{% url 'ViewCart' %}">Cart</a>
-            <a href="{% url 'Logout' %}">Logout</a>
+            <a href="{% url 'Home' %}" style="color: white; text-decoration: none; margin: 0 15px;">Home</a>
+            <a href="{% url 'Login' %}" style="color: white; text-decoration: none; margin: 0 15px;">Login</a>
+            <a href="{% url 'ViewCart' %}" style="color: white; text-decoration: none; margin: 0 15px;">Cart</a>
+            <a href="{% url 'Logout' %}" style="color: white; text-decoration: none; margin: 0 15px;">Logout</a>
         </nav>
     </header>
-    <div class="product-list" style="display:flex">
+    <div class="product-list" style="display: flex; flex-wrap: wrap; justify-content: center; padding: 20px;">
         {% csrf_token %}
         {% for product in products %}
-            <div class="product" style="border: 1px solid black; width: 220px; padding-left: 10px;margin: 10px;">
-                <h2>{{ product.pro_name }}</h2>
-                <p>{{ product.pro_decription }}</p>
-                <p>Price: ${{ product.pro_price }}</p>
-                <img style="width:200px;height:100px;" src="{{ product.pro_image.url }}" alt="{{ product.pro_name }}">
-                        <a href="{% url 'AddToCart' product.id %}">Add to Cart</a>
+            <div class="product" style="border: 1px solid #ccc; width: 220px; padding: 10px; margin: 10px; background-color: white; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                <h2 style="font-size: 18px; color: #343a40;">{{ product.pro_name }}</h2>
+                <p style="font-size: 14px; color: #555;">{{ product.pro_description }}</p>
+                <p style="font-weight: bold; color: #28a745;">Price: ${{ product.pro_price }}</p>
+                <img style="width: 200px; height: 100px; border-radius: 5px;" src="{{ product.pro_image.url }}" alt="{{ product.pro_name }}">
+                <div style="margin-top: 10px;">
+                    <a href="{% url 'AddToCart' product.id %}" style="display: inline-block; background-color: #007bff; color: white; padding: 10px; border-radius: 5px; text-decoration: none; text-align: center;">Add to Cart</a>
+                </div>
             </div>
         {% endfor %}
         {% if message %}
-        <h6>{{message}}</h6>
-        {% else %}
+            <h6 style="text-align: center; color: #dc3545;">{{ message }}</h6>
         {% endif %}
     </div>
 </body>
