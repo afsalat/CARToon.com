@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cart',
     'user',
-    'product'
+    'product',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'CARToon_com.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,6 +70,8 @@ TEMPLATES = [
         },
     },
 ]
+
+
 
 WSGI_APPLICATION = 'CARToon_com.wsgi.application'
 
@@ -115,12 +118,26 @@ USE_I18N = True
 USE_TZ = True
 
 
+MEDIA_URL = '/imgProducts/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'imgProducts')
+
+SESSION_COOKIE_AGE = 1209600
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+LOGIN_REDIRECT_URL = 'home'  # Make sure 'home' is defined in your URLs
+LOGOUT_REDIRECT_URL = 'login'  # Should redirect back to login
+LOGIN_URL = 'login'  # Use the name you gave to the login URL

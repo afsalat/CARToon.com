@@ -1,116 +1,51 @@
-/* Reset some basic elements */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* style/style.css */
 
 body {
     font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f4f4f4;
-    color: #333;
+    margin: 0;
+    padding: 0;
 }
 
 header {
-    background: #35424a;
-    color: #ffffff;
-    padding: 20px 0;
+    background-color: #f8f8f8;
+    padding: 10px;
     text-align: center;
-}
-
-header h1 {
-    margin: 0;
-}
-
-nav {
-    margin-top: 10px;
 }
 
 nav a {
-    color: #ffffff;
     margin: 0 15px;
     text-decoration: none;
-    transition: color 0.3s;
+    color: #333;
 }
 
-nav a:hover {
-    color: #ffa500; /* Orange color on hover */
-}
-
-.cart {
-    width: 90%;
-    max-width: 800px;
-    margin: 20px auto;
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     padding: 20px;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
+.product {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 15px;
     text-align: center;
-    margin-bottom: 20px;
+    width: 250px; /* Adjust the width as needed */
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
+.product img {
+    width: 200px; /* Set the desired width */
+    height: 200px; /* Set the desired height */
+    object-fit: cover; /* Maintains aspect ratio while filling the fixed size */
+    border-radius: 5px; /* Optional: for rounded corners */
 }
 
-th, td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+.product h2 {
+    font-size: 18px;
+    margin: 10px 0;
 }
 
-th {
-    background: #35424a;
-    color: #ffffff;
-}
-
-tr:hover {
-    background-color: #f1f1f1;
-}
-
-img {
-    border-radius: 4px;
-}
-
-form {
-    display: inline;
-}
-
-input[type="number"] {
-    width: 50px;
-    padding: 5px;
-    margin-right: 5px;
-}
-
-button {
-    background: #35424a;
-    color: #ffffff;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-button:hover {
-    background: #ffa500; /* Change background on hover */
-}
-
-a {
-    color: #35424a;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-.total {
-    font-weight: bold;
-    text-align: right;
-    margin-top: 20px;
-    font-size: 1.2em;
+.product p {
+    margin: 5px 0;
 }

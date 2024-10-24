@@ -1,12 +1,14 @@
-from urllib import response
 from django.shortcuts import render
 from .models import Product
 
 
-#Endpoint: view all products
-def veiwAllProducts(request):
+# Endpoint: view all products
+def viewAllProducts(request):
     try:
         products = Product.objects.all()
-        render(request, "Home.html", {"products":products})
+        print("----", products)
+        data=[item for item in products]
+        return render(request, 'Home.html', {'products': data})
+
     except Exception as e:
-        return response({'message':str(e), 'status_code':500})
+        return render(request, 'Home.html', {'message': str(e), 'status_code': 500})
