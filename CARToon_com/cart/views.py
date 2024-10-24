@@ -1,3 +1,4 @@
+import traceback
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Cart
 from product.models import Product
@@ -33,15 +34,21 @@ def addToCart(request, product_id):
 def view_cart(request):
     try:
         user = request.user 
-        cart_items = Cart.objects.filter(user_id=user.id)  
-        
-        if not cart_items.exists():
+        cart_items = Cart.objects.filter(user_id=user.id)
+
+        if not cart_items.exists():  
             return render(request, 'Cart.html', {"cart_items": cart_items, "message": "Your cart is empty."})
-        
-        return render(request, 'Cart.html', {"cart_items": cart_items})
-    
+
+        products = []
+        for item in cart_items:
+            product = Product.objects.get(id=item.pro_id)
+            products.append(product)
+
+        return render(request, 'Cart.html', {"cart_items": cart_items, "products": products})
+
     except Exception as e:
         print(f"Error while viewing cart: {e}") 
+        print(traceback.format_exc())
         return render(request, 'Home.html', {'message': 'An error occurred while fetching your cart.'})
 
 

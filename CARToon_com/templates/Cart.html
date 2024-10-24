@@ -1,4 +1,5 @@
 {% load static %}
+{% load math_filters %} 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +12,7 @@
     <header>
         <h1>Your Cart</h1>
         <nav>
-            <a href="{% url 'Register' %}">Register</a>
+            <a href="{% url 'Home' %}">Home</a>
             <a href="{% url 'Login' %}">Login</a>
             <a href="{% url 'ViewCart' %}">Cart</a>
             <a href="{% url 'Logout' %}">Logout</a>
@@ -19,18 +20,31 @@
     </header>
     
     <div class="cart-items">
-        {% csrf_token %}
-        {% for item in cart_items %}
-            <div class="cart-item">
-                <h2>{{ item.pro_id.pro_name }}</h2>
-                <p>Price: ${{ item.pro_id.pro_price }}</p>
-                <p>Quantity: {{ item.quantity }}</p>
-                <a href="{% url 'UpdateCart' 'remove' item.pro_id.id %}">Remove One</a>
-                <a href="{% url 'UpdateCart' 'add' item.pro_id.id %}">Add One</a>
-            </div>
-        {% empty %}
+        {% if cart_items %}
+            {% with total_amount=0 %}
+                {% for item in cart_items %}
+                    {% with subtotal=item.pro_id.pro_price|floatformat:2|multiply:item.quantity %}
+                        <article class="cart-item" style="border: 1px solid black; width: 80%; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
+                            <h2>{{ item.pro_id.pro_name }}</h2>
+                            <p>Price: ${{ item.pro_id.pro_price|floatformat:2 }}</p>
+                            <div class="quantity-controls">
+                                <a style="text-decoration: none;" href="{% url 'UpdateCart' 'add' item.pro_id %}"><b>+</b></a>
+                                <p style="border: 1px solid black; margin: 0 10px;">{{ item.quantity }}</p>
+                                <a style="text-decoration: none;" href="{% url 'UpdateCart' 'remove' item.pro_id %}"><b>-</b></a>
+                            </div>
+                            <p>Subtotal: ${{ subtotal|floatformat:2 }}</p> 
+                        </article>
+                        {% with total_amount=total_amount|add:subtotal %}
+                        {% endwith %}
+                    {% endwith %}
+                {% endfor %}
+                <div class="total-amount">
+                    <h2>Total Amount: ${{ total_amount|floatformat:2 }}</h2>  <!-- Display total amount -->
+                </div>
+            {% endwith %}
+        {% else %}
             <p>Your cart is empty.</p>
-        {% endfor %}
+        {% endif %}
     </div>
 </body>
 </html>
