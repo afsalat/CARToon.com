@@ -33,7 +33,7 @@ def addToCart(request, product_id):
 # Endpoint: View all items in the cart
 def view_cart(request):
     try:
-        user = request.user 
+        user = request.user
         cart_items = Cart.objects.filter(user_id=user.id)
 
         if not cart_items.exists():  
@@ -41,11 +41,15 @@ def view_cart(request):
 
         product_ids = cart_items.values_list('pro_id', flat=True)  
         products = Product.objects.filter(id__in=product_ids)  
+
         cart_items_with_products = [
             {'cart_item': item, 'product': products.get(id=item.pro_id)} for item in cart_items
         ]
 
-        return render(request, 'Cart.html', {"cart_items_with_products": cart_items_with_products})
+        total_amount = sum(item['product'].price * item['cart_item'].quantity for item in cart_items_with_products)
+
+        return render(request, 'Cart.html', {"cart_items_with_products": cart_items_with_products, "total_amount": total_amount})
+
 
     except Exception as e:
         print(f"Error while viewing cart: {e}") 
