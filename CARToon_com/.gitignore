@@ -1,38 +1,36 @@
-# Byte-compiled / optimized / DLL files
+# Python cache files
 __pycache__/
 *.py[cod]
-*$py.class
 
-# Django specific files
-*.log
-*.pot
-*.pyc
-*.pyo
-db.sqlite3  # Ignore the default SQLite database
-
-# Environment variables
-.env  # If you're using an environment file for secrets
-
-# Static files (if using Django's staticfiles)
-staticfiles/
-static/
-
-# Media files (user-uploaded content)
-media/
+# Virtual environment
+venv/
+*.env
 
 # Django migrations
 */migrations/*
+!*/migrations/__init__.py
 
-# Virtual environments
-venv/
-env/
+# Database files
+db.sqlite3
 
-# VSCode-specific files
+# Static files
+/staticfiles/
+*.log
+
+# Media files
+/media/
+
+# IDE and editor files
 .vscode/
+.idea/
+*.swp
+*.swo
 
-# Node modules (if using npm/yarn for frontend dependencies)
-node_modules/
+# Jupyter Notebook files
+.ipynb_checkpoints
 
-# Operating system-specific files
-.DS_Store  # macOS
-Thumbs.db  # Windows
+# Python egg files
+*.egg
+*.egg-info/
+dist/
+build/

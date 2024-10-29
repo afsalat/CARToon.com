@@ -10,9 +10,26 @@
 <body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
     <div style="background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); width: 300px; text-align: center;">
         <h2 style="margin: 0 0 20px; color: #343a40;">Login</h2>
-        <form method="post" style="display: flex; flex-direction: column;">
+        <form method="POST" style="display: flex; flex-direction: column;">
             {% csrf_token %}
-            {{ form.as_p }}
+            <div class="error-messages">
+                <p>There were errors with your submission:</p>
+                <ul>
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <li>{{ field }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+                <label for="id_username">Username:</label>
+                {{ form.username }}
+            </div>
+            
+            <div>
+                <label for="id_password">Password:</label>
+                {{ form.password }}
+            </div>
             <button type="submit" style="background-color: #007bff; color: white; border: none; border-radius: 4px; padding: 10px; cursor: pointer; font-size: 16px; margin-top: 10px;">Login</button>
         </form>
         <p style="margin-top: 15px; font-size: 14px; color: #555;">Don't have an account? <a href="{% url 'Register' %}" style="color: #007bff; text-decoration: none;">Register here</a></p>

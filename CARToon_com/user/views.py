@@ -2,6 +2,7 @@ from urllib import response
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 
 
@@ -10,17 +11,22 @@ from django.contrib import messages
 def login(request):
     try:
         if request.method == "POST":
-            username = request.POST['username']
-            password = request.POST['password']
-            user = authenticate(request, username=username, password=password)
-            
-            if user is not None:
-                login(request, user)
-                return redirect('Home')
+            form = AuthenticationForm(request, data=request.POST)
+            if form.is_valid():
+
+                user = form.get_user()
+                login(request, user)  
+
+                print("User authenticated and logged in!")  
+
+                return redirect('home') 
             else:
-                return render(request, 'Login.html', {'error': 'Invalid username or password'})
-                            
-        return render(request, 'Login.html')
+                print("Form is not valid")
+                print(form.errors)  
+        else:
+            form = AuthenticationForm() 
+
+        return render(request, 'login.html', {'form': form})
 
     except Exception as e:
         return render(request, 'Login.html', {"message":str(e), "status_code":500})
@@ -49,11 +55,10 @@ def Register(request):
 #Endpoint: user logout
 def logout(request):
     try:
+        print(request.user)
         logout(request)
-        redirect("Login")
-
-        return redirect(request, "Login")
-
+        request.session.flush()
+        return redirect("Login")
 
     except Exception as e:
         return render(request, "Home.html", {"message":str(e), "status_code":500})
