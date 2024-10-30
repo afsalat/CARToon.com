@@ -2,8 +2,6 @@ import traceback
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Cart
 from product.models import Product
-from user.models import customUser
-from django.contrib.auth.decorators import login_required
 
 
 
@@ -12,7 +10,7 @@ def addToCart(request, product_id):
     try:
         product = get_object_or_404(Product, id=product_id)  
         user = request.user
-        print(user)
+        print(user.id)
 
         cart_item, created = Cart.objects.get_or_create(
             pro_id=product.id,
@@ -46,7 +44,7 @@ def view_cart(request):
             {'cart_item': item, 'product': products.get(id=item.pro_id)} for item in cart_items
         ]
 
-        total_amount = sum(item['product'].price * item['cart_item'].quantity for item in cart_items_with_products)
+        total_amount = sum(item['product'].pro_price * item['cart_item'].quantity for item in cart_items_with_products)
 
         return render(request, 'Cart.html', {"cart_items_with_products": cart_items_with_products, "total_amount": total_amount})
 

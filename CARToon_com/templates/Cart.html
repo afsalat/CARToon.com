@@ -37,14 +37,15 @@
                                 <p style="margin: 5px 0; font-weight: bold;">Subtotal: ${{ subtotal|floatformat:2 }}</p> 
                             </div>
                         </article>
-                        {% with total_amount=total_amount|add:subtotal %}
-                        {% endwith %}
                     {% endwith %}
                 {% endfor %}
+            {% endwith %}
+            {% if total_amount %}
                 <div class="total-amount" style="font-size: 1.5em; font-weight: bold; margin-top: 20px; text-align: right;">
                     Total Amount: ${{ total_amount|floatformat:2 }}
                 </div>
-            {% endwith %}
+            {% else %}
+            {% endif %}
         {% else %}
             <p style="text-align: center; font-size: 1.2em; color: #555;">Your cart is empty.</p>
         {% endif %}

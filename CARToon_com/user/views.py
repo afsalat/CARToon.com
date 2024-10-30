@@ -1,6 +1,7 @@
 from urllib import response
 from django.shortcuts import redirect, render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login as login_view
+from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
@@ -10,22 +11,20 @@ from django.contrib import messages
 # Endpoint: user login
 def login(request):
     try:
-        if request.method == "POST":
+        if request.method == 'POST':
             form = AuthenticationForm(request, data=request.POST)
             if form.is_valid():
-
-                user = form.get_user()
-                login(request, user)  
-
-                print("User authenticated and logged in!")  
-
-                return redirect('home') 
+                username = form.cleaned_data.get('username')
+                password = form.cleaned_data.get('password')
+                user = authenticate(request, username=username, password=password)
+                print("--",user)
+                if user is not None:
+                    login_view(request, user)
+                    return redirect('Home')
             else:
-                print("Form is not valid")
-                print(form.errors)  
+                return render(request, 'login.html', {'form': form, 'error': 'Invalid username or password'})
         else:
-            form = AuthenticationForm() 
-
+            form = AuthenticationForm()
         return render(request, 'login.html', {'form': form})
 
     except Exception as e:
@@ -55,7 +54,6 @@ def Register(request):
 #Endpoint: user logout
 def logout(request):
     try:
-        print(request.user)
         logout(request)
         request.session.flush()
         return redirect("Login")
